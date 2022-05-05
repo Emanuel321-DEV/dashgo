@@ -23,7 +23,7 @@ export function Header(){
             marginX="auto"
             mt="4"
             px="6"
-            align="center"    
+            align="center"   
         >
 
             { !isWideVersion && (
@@ -34,6 +34,7 @@ export function Header(){
                     variant='unstyled'
                     onClick={onOpen}
                     mr="2"
+                    mt="2"                  
                 />
             )}
             
