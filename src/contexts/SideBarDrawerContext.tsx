@@ -1,35 +1,36 @@
-import { createContext, useContext, useEffect, ReactNode } from "react";
-
-import { UseDisclosureReturn, useDisclosure } from "@chakra-ui/react";
-
+import { createContext, useContext, useEffect } from "react";
+import { useDisclosure, UseDisclosureReturn } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-
-interface SideBarDrawerProviderProps {
-    children: ReactNode;
-}
 
 type SideBarDrawerContextData = UseDisclosureReturn;
 
-const SideBarDrawerContext = createContext({} as SideBarDrawerContextData)
+const ContextSideBar = createContext({} as SideBarDrawerContextData);
 
-
-export function SideBarDrawerProvider({ children } : SideBarDrawerProviderProps){
+function SideBarDrawerProvider ({ children }){
     const disclosure = useDisclosure();
     const router = useRouter();
 
 
-    // Fechar a barra de navegação quando o path mudar
-    useEffect( () => {
+    useEffect(() => {
         disclosure.onClose()
     }, [router.asPath])
 
     return (
-        <SideBarDrawerContext.Provider value={disclosure}>
+        <ContextSideBar.Provider value={ disclosure }>
             { children }
-        </SideBarDrawerContext.Provider>
+        </ContextSideBar.Provider>
     )
 
 }
 
 
-export const useSideBarDrawer = () => useContext(SideBarDrawerContext);
+
+
+const useSideBarDrawer = () => useContext(ContextSideBar); 
+
+
+
+
+export { useSideBarDrawer, SideBarDrawerProvider }
+
+
